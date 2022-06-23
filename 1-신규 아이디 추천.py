@@ -13,11 +13,15 @@ def solution(new_id):
     # 문자 .이 1번 이상 반복됨
 
     # 4
-    if (new_id):  # 빈 문자열이 아니라면
-        if (new_id[0] == '.'):
-            new_id = new_id[1:]
-        if (new_id and new_id[-1] == '.'):  # new_id=='.'인 경우-단락 평가
-            new_id = new_id[:-1]
+    if (new_id and new_id[0] == '.'): 
+        new_id = new_id[1:]
+    if (new_id and new_id[-1]=='.'): 
+        new_id = new_id[:-1]
+        
+    # 빈 문자열은 슬라이싱할 수 있지만 인덱싱은 안되므로 new_id로 단락 평가
+    # new_id=='.'인 경우 ''로 바꿈
+    # print(''[2:]) 공백
+    # print(''[2]) 에러
 
     # 5
     if (not new_id):
@@ -60,6 +64,7 @@ def solution(new_id):
     st = st if len(st) > 2 else st + "".join([st[-1] for i in range(3-len(st))])
     return st
     
+    [^a-z]: 알파벳 소문자를 제외한 문자
     .은 '줄바꿈 문자를 제외한 1글자'를 의미하므로 \. 혹은 [.]이라고 써야 '.'으로 취급
     +: 한 번 이상 반복됨
     ^: 문자열의 맨 앞부터 일치하는 경우 검색
@@ -69,6 +74,11 @@ def solution(new_id):
     [st + "".join([st[-1] for i in range(3-len(st))]
     리스트 내포
     리스트 명 = [표현식 for 변수 in 반복 가능한 대상]
+    '구분자'.join(리스트)
+    
+    처음, 끝의 마침표 제거 후 a를 대입하거나 [:15]만 남길 경우 [0]에는 마침표가 없음
+    st = re.sub('[.]$', '', st)
+    
     
     https://velog.io/@ednadev/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC-re%EB%AA%A8%EB%93%88
 
@@ -92,6 +102,10 @@ def solution(new_id):
         answer = answer[1:] if len(answer) > 1 else '.'
     if answer[-1] == '.':
         answer = answer[:-1]
+        
+    answer가 빈 문자열이 아니라고 가정
+    answer=='.'인 경우 두 번째 if문에서 에러가 발생하므로 ''가 아닌 '.'
+    
     # 5
     if answer == '':
         answer = 'a'
@@ -118,4 +132,8 @@ def solution(new_id):
     new_id = sub("\.$", "", new_id[:15])
     new_id = new_id if len(new_id) > 3 else new_id + new_id[-1] * (3 - len(new_id))
     return new_id
+    
+    \.+: 문자 '.' 1개 이상
+    ^\.: 첫 '.'
+    \.$: 마지막 '.'
 '''
