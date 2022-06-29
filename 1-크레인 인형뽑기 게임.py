@@ -8,6 +8,7 @@ def solution(board, moves):
             if (board[j][i]):
                 InuseIndex.append(j)
                 break
+        # if (j==len(board)-1):
         if (len(InuseIndex)==i): # i번에 인형이 없음. i==2인 경우 len(InuseIndex)==3이어야 함
             InuseIndex.append(len(board)) # 참조 가능한 값을 초과
 
@@ -31,28 +32,30 @@ def solution(board, moves):
     return answer
 
 '''
-0 0 0 0 0
-0 0 1 0 2
-0 2 5 0 1
-4 2 4 4 2
+InuseIndex=인형이 있는 행
 
-InuseIndex=[3, 2, 1, 3, 1]
+for: 열
+    for: 행
+        if: board[행][열] 열 고정, 행을 순회하며 인형이 있는지 탐색
+            break->다음 줄 if로 넘어감
+        if: 열에 인형이 없는 경우
+        (j가 마지막 행을 가리킬 때, InuseIndex에 삽입하지 않아 len(InuseIndex) != i+1일 때)
+        참조 가능한 값인 0~len(board)-1을 초과한 len(board) 삽입
 
-[3][0]
-[2][1]
-[1][2]
-[3][3]
-[1][4]
-
-n번에서 pop-
-board[InuseIndex[n-1]][n-1]
-
-0 0 0
-0 0 3
-0 2 1
-
-InuseIndex=[-1, 2, 1]
+for: 인형을 뽑을 열(1~N)
+    if: 열의 인형위치가 초과값일 경우(인형이 없음) 다음으로 패스
+    
+    popNumber=board[행][열] (인형 번호)
+    
+    if: 스택에 인형이 있다면
+        if: 같은 모양
+        else: 다른 모양
+    else: 스택에 인형이 없다면
+    
+    InuseIndex[열]+=1
+    
 '''
+
 
 print(solution([[0,0,0,0,0],[0,0,1,0,3],[0,2,5,0,1],[4,2,4,4,2],[3,5,1,3,1]],
                [1,5,3,5,1,2,1,4,3,1,2,3,5,4,1,2,3]))
@@ -87,7 +90,15 @@ def solution(board, moves):
                 break
 
     return answer
-    
+
+for: 인형을 뽑을 열(1~N)
+    for: 행
+        if: board[행][열]에 인형이 있다면?
+            if: 스택에 인형이 2개 이상이라면?
+                if: 스택[-1]==스택[-2]라면?
+            break 
+
+
 간단하지만 느림
 
 '''
@@ -98,7 +109,7 @@ def solution(board, moves):
     
     # cols==[[4, 3], [2, 2, 5], [1, 5, 4, 1], [4, 3], [3, 1, 2, 1]]
     # list(zip(*board))==[(0, 0, 0, 4, 3), (0, 0, 2, 2, 5), (0, 1, 5, 4, 1), (0, 0, 0, 4, 3), (0, 3, 1, 2, 1)]
-    # board는 [세로][가로], zip(*board)는 [가로][세로]
+    # board는 [행][열], zip(*board)는 [열][행]
     
     list(map(함수, 리스트))
     함수 = lambda x: list(filter(lambda y: y > 0, x))
@@ -170,5 +181,7 @@ list(map(lambda x: 일차 리스트, 이차 리스트)
 
 '''
 
-
+asdfasdfasdf
+asdfasdfasdf
+asdfasdfasdf
 
