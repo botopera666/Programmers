@@ -4,7 +4,5 @@ def solution(a, b):
 
 print(solution([1, 2, 3, 4], [-3, -1, 0, 2]))
 
-'''
-solution = lambda x, y: sum(a*b for a, b in zip(x, y))
+# solution = lambda x, y: sum(a*b for a, b in zip(x, y))
 
-'''

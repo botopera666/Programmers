@@ -82,7 +82,7 @@ def solution(board, moves):
                 stacklist.append(board[j][i-1])
                 board[j][i-1] = 0
 
-                if len(stacklist) > 1:
+                if len(stacklist) > 1: #if stacklist
                     if stacklist[-1] == stacklist[-2]:
                         stacklist.pop()
                         stacklist.pop()
@@ -107,19 +107,18 @@ for: 인형을 뽑을 열(1~N)
 def solution(board, moves):
     cols = list(map(lambda x: list(filter(lambda y: y > 0, x)), zip(*board)))
     
-    # cols==[[4, 3], [2, 2, 5], [1, 5, 4, 1], [4, 3], [3, 1, 2, 1]]
-    # list(zip(*board))==[(0, 0, 0, 4, 3), (0, 0, 2, 2, 5), (0, 1, 5, 4, 1), (0, 0, 0, 4, 3), (0, 3, 1, 2, 1)]
-    # board는 [행][열], zip(*board)는 [열][행]
+    cols==[[4, 3], [2, 2, 5], [1, 5, 4, 1], [4, 3], [3, 1, 2, 1]]
+    list(zip(*board))==[(0, 0, 0, 4, 3), (0, 0, 2, 2, 5), (0, 1, 5, 4, 1), (0, 0, 0, 4, 3), (0, 3, 1, 2, 1)]
+    board는 [행][열], zip(*board)는 [열][행]
     
     list(map(함수, 리스트))
     함수 = lambda x: list(filter(lambda y: y > 0, x))
     리스트 = zip(*board)
     
-    lambda y: y>0으로 x에서 0보다 큰 수만 뽑음
-    
-    lambda 매개변수들: 식1 if 조건식 else 식2
+    x: zip(*board)의 일차 리스트
     filter(함수, 반복가능한객체)
-    
+    lambda y: y>0으로 x에서 0보다 큰 수만 뽑음
+
     x x x x x
     x x o x o
     x o o x o
@@ -127,20 +126,63 @@ def solution(board, moves):
     o o o o o
     
     a, s = 0, [0]
-    # a는 터진 인형, s는 바구니
 
     for m in moves:
-        if len(cols[m - 1]) > 0: # 집을 인형이 남아있다면
-            if (d := cols[m - 1].pop(0)) == (l := s.pop()): # 맨 앞, 맨 뒤
+        if len(cols[m - 1]) > 0: 
+            if (d := cols[m - 1].pop(0)) == (l := s.pop()): 
                 a += 2
             else:
                 s.extend([l, d]) # pop()으로 없앤 인형을 다시 넣음
 
     return a
 
+cols=[[4, 3], [2, 2, 5], [1, 5, 4, 1], [4, 3], [3, 1, 2, 1]]
+a, s=터진 인형, 스택
+
+for: 인형을 뽑을 열(1~N)
+    if: i열의 인형 개수>0 (집을 인형이 남아있는가?)
+        if: i열.pop(0)==스택.pop()
+            터진 인형+=2
+        else: 스택 삽입
 
 
+def solution(board, moves):
+    print(board)
+    print(*board)
+    print(zip(*board))
+    print(list(zip(*board)))
+    print(lambda x: list(filter(lambda y: y > 0, x)), zip(*board))
+    print(map(lambda x: list(filter(lambda y: y > 0, x)), zip(*board)))
+    print(list(map(lambda x: list(filter(lambda y: y > 0, x)), zip(*board))))
+    
+[[0, 0, 0, 0, 0], [0, 0, 1, 0, 3], [0, 2, 5, 0, 1], [4, 2, 4, 4, 2], [3, 5, 1, 3, 1]]
+[0, 0, 0, 0, 0] [0, 0, 1, 0, 3] [0, 2, 5, 0, 1] [4, 2, 4, 4, 2] [3, 5, 1, 3, 1]
+<zip object at 0x000002316F8933C0>
+[(0, 0, 0, 4, 3), (0, 0, 2, 2, 5), (0, 1, 5, 4, 1), (0, 0, 0, 4, 3), (0, 3, 1, 2, 1)]
+<function solution.<locals>.<lambda> at 0x000002316F886EE0> <zip object at 0x000002316F893400>
+<map object at 0x000002316F892D90>
+[[4, 3], [2, 2, 5], [1, 5, 4, 1], [4, 3], [3, 1, 2, 1]]
 
+'''
+
+sample=[[0, 0, 0, 0, 0], [0, 0, 1, 0, 3], [0, 2, 5, 0, 1], [4, 2, 4, 4, 2], [3, 5, 1, 3, 1]]
+
+print(list(filter(lambda y:y>0, [0, 1, 2, 3, 4])))
+print(list(map(lambda x: list(filter(lambda y: y > 0, x)), zip(*sample))))
+
+# [1, 2, 3, 4]
+# [[4, 3], [2, 2, 5], [1, 5, 4, 1], [4, 3], [3, 1, 2, 1]]
+'''
+zip(*sample)은 이중 리스트
+
+lambda y:y>0에서 y에 대응하는 객체는 일차 리스트의 원소
+
+list(filter(lambda y:y>0, [0, 1, 2, 3, 4]))의 결괏값은 일차 리스트
+
+list(map(lambda 일차 리스트: list(y>0인 원소), 이차 리스트))
+x에 zip(*sample)의 일차 리스트가 대응함
+
+=================================================================
 a = [1, 2, 3, 4]
 n = len(a)
 if n > 5:
@@ -162,26 +204,4 @@ https://docs.python.org/ko/3/whatsnew/3.8.html
 https://dojang.io/mod/page/view.php?id=2286
 https://wikidocs.net/64
 '''
-
-sample=[[0, 0, 0, 0, 0], [0, 0, 1, 0, 3], [0, 2, 5, 0, 1], [4, 2, 4, 4, 2], [3, 5, 1, 3, 1]]
-
-print(list(filter(lambda y:y>0, [0, 1, 2, 3, 4])))
-
-print(list(map(lambda x: list(filter(lambda y: y > 0, x)), zip(*sample))))
-
-'''
-zip(*sample)은 이중 리스트
-원소에 접근하기 위해서는 대응하는 함수도 이중이어야 함
-
-lambda y:y>0의 경우 대응하는 객체는 일차 리스트
-
-list(filter(lambda y:y>0, [0, 1, 2, 3, 4]))의 결괏값은 일차 리스트
-
-list(map(lambda x: 일차 리스트, 이차 리스트)
-
-'''
-
-asdfasdfasdf
-asdfasdfasdf
-asdfasdfasdf
 
